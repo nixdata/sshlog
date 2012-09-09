@@ -1,0 +1,17 @@
+#!/usr/bin/expect
+# Description: Creates log files sorted by date within the  ~/.sshlogs directory. 
+#
+set host [lindex $argv]
+proc usage {} {
+   global host
+   send_user "You need to set atleast 1 argument!\n"
+   exit
+}
+if {[llength $argv]!=1} usage
+exec /bin/mkdir -p $env(HOME)/.sshlogs/[exec date +%y/%m/%d]/
+set logfile "$env(HOME)/.sshlogs/[exec date +%y/%m/%d]/$host"
+log_file -a $logfile
+spawn /usr/bin/ssh -A $host
+# Drop into interactive mode
+interact 
+send_user "Connection ended. \n\rLog files can be found in: $logfile\r\n"

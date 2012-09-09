@@ -1,0 +1,21 @@
+#!/bin/bash
+# Descriptions runs the sshlog.exp script with the appropriate arguments
+dhost=""
+fhit="0"
+
+for f in $@; do
+   echo $f | grep @ > /dev/null 
+   if [ "$?" -eq 0 ]; then
+      if [ $fhit -eq 0 ]; then
+         fhit="1"
+         export dhost=$f
+         continue
+      fi
+   fi
+   arg_arr+=($f)
+done
+if [ $fhit -eq 0 ]; then
+   export dhost=$1  
+   arg_arr=""
+fi
+./sshlog.exp $dhost ${arg_arr[@]}
