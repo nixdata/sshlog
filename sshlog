@@ -1,5 +1,5 @@
 #!/bin/bash
-# Descriptions runs the sshlog.exp script with the appropriate arguments
+# Description: Runs the sshlog.exp script with the appropriate arguments
 #
 dhost=""
 fhit="0"
